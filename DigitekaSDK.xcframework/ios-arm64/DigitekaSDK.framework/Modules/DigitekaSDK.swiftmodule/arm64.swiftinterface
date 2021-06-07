@@ -1,0 +1,126 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.3.2 (swiftlang-1200.0.45 clang-1200.0.32.28)
+// swift-module-flags: -target arm64-apple-ios13.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name DigitekaSDK
+@_exported import DigitekaSDK
+import Foundation
+import JavaScriptCore
+import Swift
+import UIKit
+import WebKit
+@objc @_inheritsConvenienceInitializers public class OutstreamView : UIKit.UIView {
+  @objc deinit
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+}
+extension OutstreamView : UIKit.UIScrollViewDelegate {
+}
+extension OutstreamView : WebKit.WKNavigationDelegate {
+  @objc dynamic public func webView(_ webView: WebKit.WKWebView, didFinish navigation: WebKit.WKNavigation!)
+  @objc dynamic public func webView(_ webView: WebKit.WKWebView, decidePolicyFor navigationAction: WebKit.WKNavigationAction, decisionHandler: @escaping (WebKit.WKNavigationActionPolicy) -> Swift.Void)
+  @objc dynamic public func webView(_ webView: WebKit.WKWebView, decidePolicyFor navigationAction: WebKit.WKNavigationAction, preferences: WebKit.WKWebpagePreferences, decisionHandler: @escaping (WebKit.WKNavigationActionPolicy, WebKit.WKWebpagePreferences) -> Swift.Void)
+  @objc dynamic public func webView(_ webView: WebKit.WKWebView, decidePolicyFor navigationResponse: WebKit.WKNavigationResponse, decisionHandler: @escaping (WebKit.WKNavigationResponsePolicy) -> Swift.Void)
+}
+extension Digiteka {
+  public static let shared: DigitekaSDK.Digiteka
+  public class func getInstance() -> DigitekaSDK.Digiteka
+  public func initialize(_ config: DigitekaSDK.DTKConfig)
+}
+extension OutstreamView {
+  public class func getInstance() -> DigitekaSDK.OutstreamView
+  public func initialize(config: DigitekaSDK.OutstreamViewConfig, delegate: DigitekaSDK.OutstreamViewDelegate? = nil)
+  public func load()
+  public func close(animated: Swift.Bool, withDuration duration: Foundation.TimeInterval = 0.5)
+  public func reload()
+  @objc dynamic public func scrollViewDidScroll(_ scrollView: UIKit.UIScrollView)
+}
+public protocol OutstreamViewDelegate : AnyObject {
+  func didReceiveAd(_ ad: DigitekaSDK.OutstreamView)
+  func onClose(_ ad: DigitekaSDK.OutstreamView)
+  func didUpdateHeight(_ ad: DigitekaSDK.OutstreamView, height: CoreGraphics.CGFloat)
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class DTKConfig : ObjectiveC.NSObject {
+  public var baseUrl: Foundation.URL
+  public var mdtk: Swift.String
+  public var consentString: Swift.String?
+  public var loggingEnabled: Swift.Bool
+  convenience public init(baseUrl: Foundation.URL, mdtk: Swift.String, consentString: Swift.String? = nil)
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class Digiteka {
+  public var config: DigitekaSDK.DTKConfig!
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class OutstreamViewConfig : ObjectiveC.NSObject {
+  public var adUnit: Swift.String?
+  public var urlReferer: Swift.String
+  public var zone: Foundation.NSNumber
+  convenience public init(urlReferer: Swift.String, zone: Foundation.NSNumber, adUnit: Swift.String? = nil)
+  @objc deinit
+}
+extension WKWebView {
+  public var javaScriptController: DigitekaSDK.WKJavaScriptController? {
+    get
+    set
+  }
+  public func prepareForJavaScriptController()
+}
+@objc @_hasMissingDesignatedInitializers open class JSValueType : ObjectiveC.NSObject {
+  @objc override dynamic open var description: Swift.String {
+    @objc get
+  }
+  @objc deinit
+  @objc override dynamic public init()
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers open class JSBool : DigitekaSDK.JSValueType {
+  open var value: Swift.Bool {
+    get
+  }
+  convenience public init(_ value: Swift.Bool)
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers open class JSInt : DigitekaSDK.JSValueType {
+  open var value: Swift.Int {
+    get
+  }
+  convenience public init(_ value: Swift.Int)
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers open class JSFloat : DigitekaSDK.JSValueType {
+  open var value: Swift.Float {
+    get
+  }
+  convenience public init(_ value: Swift.Float)
+  @objc deinit
+}
+extension NSNotification.Name {
+  public static let WKJavaScriptControllerIgnoredMethodInvocation: Foundation.Notification.Name
+  public static let WKJavaScriptControllerWillMethodInvocation: Foundation.Notification.Name
+}
+@objc open class WKJavaScriptController : ObjectiveC.NSObject {
+  open var ignoreMethodCallWhenReceivedNull: Swift.Bool
+  @available(*, deprecated, renamed: "ignoreMethodCallWhenReceivedNull")
+  open var shouldSafeMethodCall: Swift.Bool {
+    get
+    set
+  }
+  open var convertsToDictionaryWhenReceivedJsonString: Swift.Bool
+  @available(*, deprecated, renamed: "convertsToDictionaryWhenReceivedJsonString")
+  open var shouldConvertJSONString: Swift.Bool {
+    get
+    set
+  }
+  open var callbackTimeout: Swift.Double {
+    get
+    set
+  }
+  open var logEnabled: Swift.Bool
+  public init(name: Swift.String, target: Swift.AnyObject, bridgeProtocol: ObjectiveC.`Protocol`)
+  open func addUserScript(_ userScript: WebKit.WKUserScript)
+  open func removeAllUserScripts()
+  @objc override dynamic public init()
+  @objc deinit
+}
+extension WKJavaScriptController : WebKit.WKScriptMessageHandler {
+  @objc dynamic public func userContentController(_ userContentController: WebKit.WKUserContentController, didReceive message: WebKit.WKScriptMessage)
+}
+extension DigitekaSDK.OutstreamView : JavaScriptCore.JSExport {}
